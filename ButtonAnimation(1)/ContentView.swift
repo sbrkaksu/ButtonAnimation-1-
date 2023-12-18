@@ -8,14 +8,25 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var animationAmount = 1.0
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-        }
-        .padding()
+        Button("Tap me"){}
+            .padding(50)
+            .background(.cyan)
+            .foregroundColor(.white)
+            .clipShape(Circle())
+            .overlay{
+                Circle()
+                    .stroke(.cyan)
+                    .scaleEffect(animationAmount)
+                    .opacity(2 - animationAmount)
+                    .animation(.easeInOut(duration: 1).repeatForever(autoreverses: false), value: animationAmount)
+            }
+            .onAppear{
+                self.animationAmount = 2
+            }
     }
 }
 
